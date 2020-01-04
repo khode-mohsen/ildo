@@ -3,7 +3,7 @@ import sys ,os ,logging
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(message)s')
 logger = logging.getLogger()
-logger.setLevel(logging.DEBUG)
+# logger.setLevel(logging.DEBUG)
 
 
 
@@ -11,29 +11,24 @@ try:
     import requests
 except ImportError as s:
     logger.error(s)
-# url = 'https://www.xnxx.com/video-ulmp5ec/huge_natural_tits_amateur_gets_fucked_by_chubby_french'
-url = sys.argv[0]
-pattern = r"'https://.*m3u8.*['^]"
-resp = requests.get(url)
-qualitys = re.findall(pattern,resp.text)[0].replace("'",'')
 
-resp = requests.get(qualitys).text
-
-presp = resp.split()[1::]
-oba = [a.split(',') for a in presp]
-
-
-
-availabe_formats = [{i.split('=')[0]:i.split('=')[1] for i in oba[o*2]} for o in range(len(oba)//2)]
-links = [oba[o*2+1] for o in range(len(oba)//2)]
-for i in range(len(availabe_formats)):
-    availabe_formats[i].update({'link':links[i][0]})
-
-
-# conv
-print('hey dear wellcome ildo [xnxx , xvideos downloader]')
-print('please select :')
-[print(index,'\t',availabe_formats[index]['NAME']) for index in range(len(availabe_formats))]
-
-indexNumber = int(input('please input a number :'))
-print(availabe_formats[indexNumber]['link'])
+class main:
+    def __init__(self):
+        self.url = sys.argv[1]
+        self.pattern = r"'https://.*m3u8.*['^]"
+        self.run()
+    def run(self):
+        htmlsource = requests.get(url).text
+        qualitys_url = re.findall(pattern,htmlsource)[0].replace("'",'')
+        qualitys_in_m3u8 = requests.get(qualitys).text
+        qualitys_in_m3u8_without_headline = qualitys_in_m3u8.split()[1::]
+        qualitys_in_m3u8_without_headline_splited_by_cama_sign =  [a.split(',') for a in qualitys_in_m3u8_without_headline]
+        qimwhsbcs = qualitys_in_m3u8_without_headline_splited_by_cama_sign
+        availabe_formats = [{i.split('=')[0]:i.split('=')[1] for i in qimwhsbcs[o*2]} for o in range(len(qimwhsbcs)//2)]
+        links = [qimwhsbcs[o*2+1] for o in range(len(qimwhsbcs)//2)]
+        for i in range(len(availabe_formats)):
+            availabe_formats[i].update({'link':links[i][0]})
+        print('which quality you want?')
+        [print(index,'\t',availabe_formats[index]['NAME']) for index in range(len(availabe_formats))]
+        selected_index = input('input index number : ')
+        
