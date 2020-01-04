@@ -5,11 +5,14 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(message)s')
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 
+
+
 try:
     import requests
 except ImportError as s:
     logger.error(s)
-url = 'https://www.xnxx.com/video-ulmp5ec/huge_natural_tits_amateur_gets_fucked_by_chubby_french'
+# url = 'https://www.xnxx.com/video-ulmp5ec/huge_natural_tits_amateur_gets_fucked_by_chubby_french'
+url = sys.argv[0]
 pattern = r"'https://.*m3u8.*['^]"
 resp = requests.get(url)
 qualitys = re.findall(pattern,resp.text)[0].replace("'",'')
