@@ -24,19 +24,23 @@ class main:
         qualitys_in_m3u8_without_headline = qualitys_in_m3u8.split()[1::]
         qualitys_in_m3u8_without_headline_splited_by_cama_sign =  [a.split(',') for a in qualitys_in_m3u8_without_headline]
         qimwhsbcs = qualitys_in_m3u8_without_headline_splited_by_cama_sign
-        availabe_formats = [{i.split('=')[0]:i.split('=')[1] for i in qimwhsbcs[o*2]} for o in range(len(qimwhsbcs)//2)]
+        available_formats = [{i.split('=')[0]:i.split('=')[1] for i in qimwhsbcs[o*2]} for o in range(len(qimwhsbcs)//2)]
         links = [qimwhsbcs[o*2+1] for o in range(len(qimwhsbcs)//2)]
-        for i in range(len(availabe_formats)):
-            availabe_formats[i].update({'link':links[i][0]})
+        for i in range(len(available_formats)):
+            available_formats[i].update({'link':links[i][0]})
         print('which quality you want?')
-        [print(index,'\t',availabe_formats[index]['NAME']) for index in range(len(availabe_formats))]
+        [print(index,'\t',available_formats[index]['NAME']) for index in range(len(available_formats))]
         selected_index = int(input('input index number : '))
-        print(self.parse_url(qualitys_url,selected_index,availabe_formats))
+        download_url = self.parse_url(qualitys_url,selected_index,available_formats)
+        video_name = ''.join(self.url.split('/')[:-1:])+'.mp4'
+        download_command = 'ffmpeg -i "{}" "{}" -c copy'.format(download_url,video_name)
+
+        os.system(download_command)
+        print(download_command)
 
     def parse_url(self,url,index,av):
         modified_url = '/'.join(url.split('/')[:-1:])+'/'
         return modified_url+av[index]['link']
-
 
 main()
 
