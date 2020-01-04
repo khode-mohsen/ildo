@@ -3,7 +3,7 @@ import sys ,os ,logging
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(message)s')
 logger = logging.getLogger()
-# logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.DEBUG)
 
 
 
@@ -18,9 +18,9 @@ class main:
         self.pattern = r"'https://.*m3u8.*['^]"
         self.run()
     def run(self):
-        htmlsource = requests.get(url).text
-        qualitys_url = re.findall(pattern,htmlsource)[0].replace("'",'')
-        qualitys_in_m3u8 = requests.get(qualitys).text
+        htmlsource = requests.get(self.url).text
+        qualitys_url = re.findall(self.pattern,htmlsource)[0].replace("'",'')
+        qualitys_in_m3u8 = requests.get(qualitys_url).text
         qualitys_in_m3u8_without_headline = qualitys_in_m3u8.split()[1::]
         qualitys_in_m3u8_without_headline_splited_by_cama_sign =  [a.split(',') for a in qualitys_in_m3u8_without_headline]
         qimwhsbcs = qualitys_in_m3u8_without_headline_splited_by_cama_sign
@@ -30,5 +30,15 @@ class main:
             availabe_formats[i].update({'link':links[i][0]})
         print('which quality you want?')
         [print(index,'\t',availabe_formats[index]['NAME']) for index in range(len(availabe_formats))]
-        selected_index = input('input index number : ')
-        
+        selected_index = int(input('input index number : '))
+        print(self.parse_url(qualitys_url,selected_index,availabe_formats))
+
+    def parse_url(self,url,index,av):
+        modified_url = '/'.join(url.split('/')[:-1:])+'/'
+        return modified_url+av[index]['link']
+
+
+main()
+
+
+
