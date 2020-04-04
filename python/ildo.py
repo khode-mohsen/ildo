@@ -32,8 +32,8 @@ class main:
         [print(index,'\t',available_formats[index]['NAME']) for index in range(len(available_formats))]
         selected_index = int(input('input index number : '))
         download_url = self.parse_url(qualitys_url,selected_index,available_formats)
-        video_name = ''.join(self.url.split('/')[-1::])+'.mp4'
-        download_command = 'ffmpeg -i "{}" "{}" -c copy'.format(download_url,video_name)
+        video_name = ''.join(self.url.split('/')[-1::])+'.mkv'
+        download_command = 'torify ffmpeg -i "{}" -vcodec libx264 -preset ultrafast "{}"'.format(download_url,video_name)
 
         os.system(download_command)
         print(download_command)
