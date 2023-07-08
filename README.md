@@ -1,4 +1,4 @@
-# idlo
+# ildo
 
   a simple downloader for xnxx and xvideos
 
